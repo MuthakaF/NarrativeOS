@@ -147,6 +147,27 @@ export const getStoryById = (id: string): Story | undefined => {
   return stories.find((s) => s.id === id);
 };
 
+export const updateStoryChapters = (
+  storyId: string,
+  chapters: Chapter[]
+) => {
+  const stories = readStore();
+
+  const updated = stories.map((story) => {
+    if (story.id !== storyId) return story;
+
+    return {
+      ...story,
+      content: {
+        chapters: chapters.sort((a, b) => a.order - b.order),
+      },
+    };
+  });
+
+  writeStore(updated);
+
+  return updated.find((s) => s.id === storyId);
+};
 // -------------------------
 
 export const deleteStory = (id: string) => {
