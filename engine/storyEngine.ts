@@ -168,6 +168,54 @@ export const updateStoryChapters = (
 
   return updated.find((s) => s.id === storyId);
 };
+
+export const publishStory = (storyId: string) => {
+  const stories = readStore();
+
+  const updated = stories.map((story) => {
+    if (story.id !== storyId) return story;
+
+    return {
+      ...story,
+      metadata: {
+        ...story.metadata,
+        visibility: "public" as const,
+      },
+    };
+  });
+
+  writeStore(updated);
+
+  return updated.find((s) => s.id === storyId);
+};
+
+export const unpublishStory = (storyId: string) => {
+  const stories = readStore();
+
+  const updated = stories.map((story) => {
+    if (story.id !== storyId) return story;
+
+    return {
+      ...story,
+      metadata: {
+        ...story.metadata,
+        visibility: "private" as const,
+      },
+    };
+  });
+
+  writeStore(updated);
+
+  return updated.find((s) => s.id === storyId);
+};
+
+export const getPublicStories = (): Story[] => {
+  const stories = readStore();
+
+  return stories.filter(
+    (story) => story.metadata.visibility === "public"
+  );
+};
 // -------------------------
 
 export const deleteStory = (id: string) => {
