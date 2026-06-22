@@ -124,6 +124,18 @@ export default function WriterDashboard() {
           >
             CREATE STORY
           </button>
+          <button
+  onClick={() => {
+    publishStory(story.id);
+    refresh();
+  }}
+>
+  Publish
+</button>
+
+{story.metadata.visibility === "public"
+  ? "Published"
+  : "Draft"}
         </div>
 
         {/* STORY LIST */}
