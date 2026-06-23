@@ -17,6 +17,7 @@ export default function WriterDashboard() {
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
   const [tone, setTone] = useState("");
+  const []
 
   const [chapterTitle, setChapterTitle] = useState("");
   const [chapterContent, setChapterContent] = useState("");
@@ -83,6 +84,13 @@ export default function WriterDashboard() {
     setChapterContent("");
   };
 
+  const publishStory = (storyId: string) => {
+    const story = stories.find((s) => s.id === storyId);
+    if (story) {
+      story.metadata.visibility = "public";
+      refresh();
+    }
+
   return (
     <div className="min-h-screen w-full bg-[#FAF6EE] p-10 font-[Times_New_Roman]">
       <div className="max-w-4xl mx-auto">
@@ -126,7 +134,7 @@ export default function WriterDashboard() {
           </button>
           <button
   onClick={() => {
-    publishStory(story.id);
+    publishStory(selectedStory.id);
     refresh();
   }}
 >
